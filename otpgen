@@ -3,22 +3,25 @@
 # a simple program to generate cryptographic one-time pads
 # depends on base64 and md5sum
 # note that this script uses /dev/urandom as a source of random
-# digits. No claims are made as to the randomness thereof. No 
-# 
+# digits. No claims are made as to the randomness thereof.
 
 date=`date +%s%N`
-tmpfile=/tmp/otp-$date
+tmpfile1=/tmp/otp1-$date
+tmpfile2=/tmp/otp2-$date
 
-base64 < /dev/urandom | sed 's/[^A-Z]//g' | tr -d '\n'| fold -50 | awk {'print $0, " "  NR'} |
-head -1000 > $tmpfile
+base64 < /dev/urandom | sed 's/[^A-Z]//g' | tr -d '\n' | head -c 50000 > $tmpfile1
 
-md5sum=`md5sum $tmpfile | sed 's/ .*//'`
+#future statistical checking of digits here
 
-cp $tmpfile ./OTP-md5_$md5sum
+fold -50 < $tmpfile1 | awk {'print $0, " "  NR'}  > $tmpfile2
+
+md5sum=`md5sum $tmpfile2 | sed 's/ .*//'`
+
+cp $tmpfile2 ./OTP-md5_$md5sum
 
 echo "file OTP-md5_$md5sum created"
 
-head -c 100000 /dev/zero > $tmpfile
-rm $tmpfile
+head -c 100000 /dev/zero > $tmpfile1; rm $tmpfile1
+head -c 100000 /dev/zero > $tmpfile2; rm $tmpfile2
 
 
