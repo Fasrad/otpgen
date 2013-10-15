@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# a simple program to generate cryptographic one-time pads
+# depends on base64 and md5sum
+# note that this script uses /dev/urandom as a source of random
+# digits. No claims are made as to the randomness thereof. No 
+# 
+
+date=`date +%s%N`
+tmpfile=/tmp/otp-$date
+
+base64 < /dev/urandom | sed 's/[^A-Z]//g' | tr -d '\n'| fold -50 | awk {'print $0, " "  NR'} |
+head -1000 > $tmpfile
+
+md5sum=`md5sum $tmpfile | sed 's/ .*//'`
+
+cp $tmpfile ./OTP-md5_$md5sum
+
+echo "file OTP-md5_$md5sum created"
+
+head -c 100000 /dev/zero > $tmpfile
+rm $tmpfile
+
+
