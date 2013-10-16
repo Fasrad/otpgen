@@ -7,8 +7,8 @@ on who you ask, /dev/urandom may or may not be random enough for
 cryptographic purposes depending on the entropy available in the 
 system's entropy pool, and no effort is currently made to check this.
 
-otpgen writes files to /tmp which is laughably insecure, however if 
-you are e.g. using a liveCD on a diskless air-gapped dedicated system
-(see: raspberry pi), then it shouldn't be a problem, so it remains.
+otpgen writes the resulting files to the working directory, which should not 
+be a problem if you are e.g. using a liveCD on a diskless air-gapped dedicated system
+(see: raspberry pi) 
 
 
