@@ -3,6 +3,12 @@
 # a bash script to generate cryptographic one-time pads
 # depends on base64 and md5sum
 
+# USAGE: otpgen 
+
+# a one-time-pad file will be generated in the current directory.
+# after printing, the computer system that ran otpgen should be 
+# sanitized appropriately. 
+
 # copyright 2013 chaz miller
 
 # This program is free software: you can redistribute it and/or modify
