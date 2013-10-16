@@ -21,7 +21,8 @@ of time to prevent you and your counterpart from using the same section of
 pad (e.g. Alice uses even pages to encrypt outgoing messages and Bob uses odd 
 pages to encrypt outgoing messages). You can communicate instructions regarding the 
 pad to be used "in the open" along with your message, but you cannot rely on 
-that as a system because Bob might have have already used that same section of pad before he receives your message, and he may have already destroyed it.  
+that as a system because Bob might have have already used that same section of pad 
+before he receives your message, and he may have already destroyed it.  
 
 1. Write down your plaintext message. Remove all spaces. Remove all 
 punctuation; spell out STOP or PARAGRAPH if you really need punctuation. 
