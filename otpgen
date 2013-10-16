@@ -19,22 +19,17 @@
 
 
 date=`date +%s%N`
-tmpfile1=/tmp/otp1-$date
-tmpfile2=/tmp/otp2-$date
+tmpfile=/tmp/otp1-$date
 
-base64 < /dev/urandom | sed 's/[^A-Z]//g' | tr -d '\n' | head -c 50000 > $tmpfile1
+base64 < /dev/urandom | sed 's/[^A-Z]//g' | tr -d '\n'| fold -50 | awk {'print $0, " "  NR'} |
+head -1000 > $tmpfile
 
-#future statistical checking of digits here
+md5sum=`md5sum $tmpfile | sed 's/ .*//'`
 
-fold -50 < $tmpfile1 | awk {'print $0, " "  NR'}  > $tmpfile2
-
-md5sum=`md5sum $tmpfile2 | sed 's/ .*//'`
-
-cp $tmpfile2 ./OTP-md5_$md5sum
+cp $tmpfile ./OTP-md5_$md5sum
 
 echo "file OTP-md5_$md5sum created"
 
-head -c 100000 /dev/zero > $tmpfile1; rm $tmpfile1
-head -c 100000 /dev/zero > $tmpfile2; rm $tmpfile2
+head -c 100000 /dev/zero > $tmpfile; rm $tmpfile
 
 
