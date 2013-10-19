@@ -3,7 +3,7 @@
 # a bash script to generate cryptographic one-time pads
 # depends on base64 and md5sum
 
-# USAGE: otpgen 
+# USAGE: otpgen.sh
 
 # a one-time-pad file will be generated in the current directory.
 # after printing, the computer system that ran otpgen should be 
@@ -24,7 +24,7 @@
 
 tmpfile=./otp_tmp_$(date +%s%N)$RANDOM
 
-md5hash=$( base64 < /dev/urandom | sed 's/[^A-Z]//g' | tr -d '\n'| fold -50 | awk {'print $0, " "  NR'} |
+md5hash=$( base64 < /dev/urandom | sed 's/[^A-Z]//g' | tr -d '\n'| fold -30 | awk {'print $0, " "  NR'} |
 head -1000 | tee $tmpfile | md5sum | sed 's/ .*//' )
 
 mv $tmpfile ./OTP-md5_$md5hash

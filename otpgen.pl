@@ -1,17 +1,63 @@
 #!/usr/bin/perl -w
 
+# this program is free software released under the GNU GPL v.3
+
+# a perl script to encrypt and decrypt one-time-pad messages
+
+# USAGE: otpgen.pl
+
+# a one-time-pad file will be generated in the current directory.
+# after printing, the computer system that ran otpgen should be 
+# sanitized appropriately. 
+
+# copyright 2013 chaz miller
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
 %alpha = ( A => 0, B => 1, C => 2, D => 3, E => 4, F => 5, G => 6, H => 7, I => 8, J => 9, K => 10, L => 11, M => 12, N => 13, O => 14, P => 15, Q => 16, R => 17, S => 18, T => 19, U => 20, V => 21, W => 22, X => 23, Y => 24, Z => 25); 
 
 %dig = ( 0 => A, 1 => B, 2 => C, 3 => D, 4 => E, 5 => F, 6 => G, 7 => H, 8 => I, 9 => J, 10 => K, 11 => L, 12 => M, 13 => N, 14 => O, 15 => P, 16 => Q, 17 => R, 18 => S, 19 => T, 20 => U, 21 => V, 22 => W, 23 => X, 24 => Y, 25 => Z); 
 
 {
-local $/;
-$help=<DATA>;
+    local $/;
+    $help=<DATA>;
 }
+print <<"EOF";
+
+IMPORTANT NOTE
+
+Using this program to encrypt and decrypt messages may compromise privacy
+if the computer system that you are using now is hacked in any way. Using
+this program on standard PC hardware WILL leave traces of your message and 
+pad data which may be recovered later.
+
+For the best privacy assurance, you should run this program from a diskless 
+system, disconnected from all network interfaces, running from a liveCD, 
+and which is protected from keyloggers and powerline noise analysis, and 
+which is rebooted/wiped after every use. 
+
+For the utmost in privacy, ALL computer systems must be considered "compromised", 
+and you should encrypt and decrypt messages by hand on paper. Enter "H" for 
+instructions on hand-encrypting one-time-pad messages.
+
+EOF
 
 LOOP:
 while(){
-    print "enter E to encrypt a message, D to decrypt a message, H for help, Q to quit:\n";
+    print "Select an action. Enter...
+    E to Encrypt a message, 
+    D to Decrypt a message, 
+    H for Help, 
+    G to Generate a new one-time-pad, 
+    Q to quit:\n";
     $choice=uc(<STDIN>);
     chomp $choice;
     if ($choice eq "E"){
@@ -24,6 +70,8 @@ while(){
         print $less $help;
         close($less);
         next LOOP;
+    } elsif ($choice eq "G") {
+        print "\n", `./otpgen.sh`, "\n";
     } elsif ($choice eq "Q") {
         exit;
     } else {
@@ -46,10 +94,10 @@ sub encrypt{
     $pad=~s/\s//g;
     if($mess=~/[^A-Z]/){print "Illegal characters in pad text.\n"; return}
 
-    print "your ciphertext is as follows:\n";
     @pad=split'',$pad; $pad_length=scalar(@pad);
     @message=split'',$mess; $mess_length=scalar(@message);
     if($mess_length > $pad_length){print "Not enough pad!\n"; return}
+    print "your ciphertext is as follows:\n\n";
 
     $ind=0;
     while($ind < $mess_length){
@@ -59,7 +107,7 @@ sub encrypt{
         print $dig{$cypher};
         $ind++;
     }
-    print "\n";
+    print "\n\n";
     return;
 }
 sub decrypt{
@@ -78,7 +126,7 @@ sub decrypt{
     $pad=~s/\s//g;
     if($mess=~/[^A-Z]/){print "Illegal characters in pad text. Cannot continue.\n"; return}
 
-    print "your decrypted message is as follows:\n";
+    print "your decrypted message is as follows:\n\n";
     @pad=split'',$pad; $pad_length=scalar(@pad);
     @message=split'',$mess; $mess_length=scalar(@message);
     if($mess_length > $pad_length){print "Not enough pad!\n"; return}
@@ -91,7 +139,7 @@ sub decrypt{
         print $dig{$cypher};
         $ind++;
     }
-    print "\n";
+    print "\n\n";
     return;
 }
 __DATA__

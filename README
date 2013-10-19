@@ -1,14 +1,17 @@
-otpgen is a program for generating cryptographic one-time-pads.
+otpgen.sh is a program for generating cryptographic one-time-pads.
 
-Lacking all rigor, it is recommended only for educational and amusement purposes. 
+otpgen.pl is a program to speed the encryption and decryption of 
+one-time-pad-encrypted messages.
 
-otpgen uses /dev/urandom as it's source of random digits. Depending 
-on who you ask, /dev/urandom may or may not be random enough for 
-cryptographic purposes depending on the entropy available in the 
-system's entropy pool, and no effort is currently made to check this.
+Lacking all rigor, these programs are recommended only for educational 
+and amusement purposes. 
+
+otpgen uses /dev/urandom as it's source of random digits. Output from 
+/dev/urandom may or may not be random enough for cryptographic purposes 
+depending on the entropy available in the system's entropy pool, and 
+no effort is currently made to check this.
 
 otpgen writes the resulting files to the working directory, which should not 
 be a problem if you are e.g. using a liveCD on a diskless air-gapped dedicated system
 (see: raspberry pi) 
-
 

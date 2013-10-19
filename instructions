@@ -1,25 +1,32 @@
 HOW TO USE A ONE-TIME PAD, BY HAND
 
-One-time pad encryption is absolutely unbreakable, provided:
+Private communication over computer networks is hard. 
+
+For the ultimate in privacy, we must assume that all computer systems 
+are compromised. Data encryption is no protection if the computer system itself
+is compromised either through the OS, malware, keyloggers, powerline 
+noise analysis, Van Eyck phreaking, backdoors hidden in CPU microcode, embedded 
+3G modems hidden in silicon phoning home (google: Sandy bridge kill switch)
+The only way to be REALLY sure that a computer message is private 
+is to encrypt your message manually before even typing it into a computer.  
+
+One way to do that is using a one-time pad. One-time pad encryption is 
+absolutely unbreakable, provided:
+
 --the pad is random
 --the pad is never reused, even in part
 --the pad remains secret
 
-The truly paranoid do not trust any automatic encryption scheme. The truly 
-paranoid must assume that all computer systems are compromised either through 
-operating system compromises, exploited bugs, malware, keyloggers, powerline 
-noise analysis, Van Eyck phreaking, backdoors hidden in CPU microcode, embedded 
-3G modems hidden in silicon phoning home to the alien reptillion human hybrid 
-conspiracy, HAARP subverting random.org by injecting information into atmospheric 
-noise, etc. Thus, the only way to be really sure is to encrypt your message 
-manually before even typing it into a computer.  
+In addition to the above points, both parties (Alice and Bob) must have copies
+of the pad ahead of time, and ideally, they must agree ahead of time what
+pad data will be used to transmit future messages. 
 
 ---ENCRYPTING A MESSAGE BY HAND---
 0. Decide what section of pad to use. Since the pad must never be reused, and 
 is ideally destroyed after being used, a convention must be established ahead 
 of time to prevent you and your counterpart from using the same section of 
-pad (e.g. Alice uses even pages to encrypt outgoing messages and Bob uses odd 
-pages to encrypt outgoing messages). You can communicate instructions regarding the 
+pad. The most straightforward is to use different pads for A->B messages and 
+for B->A messages. You can communicate instructions regarding the 
 pad to be used "in the open" along with your message, but you cannot rely on 
 that as a system because Bob might have have already used that same section of pad 
 before he receives your message, and he may have already destroyed it.  
@@ -29,9 +36,9 @@ punctuation; spell out STOP or PARAGRAPH if you really need punctuation.
 Use all-caps, A-Z. Spell out all numbers either in English or your 
 favorite spelling alphabet.
 
-2. For each digit of your message, add the numerical value of your plaintext 
-digit to the numerical value of the one-time-pad digit. If the result of 
-the addition goes bigger than 25, then "wrap around" back to A and keep going 
+2. For each digit of your message, add the numerical value (A=0, B=1, etc.)
+of your plaintext digit to the numerical value of the one-time-pad digit. If the 
+result of the addition goes bigger than 25, then "wrap around" back to A and keep going 
 (e.g. 24=Y, 25=Z, 26=A, 27=B, etc.)
 
 3. Send the message 
@@ -39,12 +46,12 @@ the addition goes bigger than 25, then "wrap around" back to A and keep going
 4. According to your level of confidence and paranoia, destroy the pad used to send the message. 
 
 ---DECRYPTING A MESSAGE BY HAND---
-0. Decide what section of pad the message was encrypted with, either through established
+0. Determine what pad data the message was encrypted with, either through established
 convention or by following the instructions sent with the message
 
-1. For each digit of the ciphertext, subtract the numerical value of the one-time-pad 
-digit from the numerical value of the the ciphertext digit. If the result of the 
-subtraction is a negative number, then "wrap around" and keep going 
+1. For each digit of the ciphertext, subtract the numerical value (A=0, B=1, etc.) 
+of the one-time-pad digit from the numerical value of the the ciphertext digit. If 
+the result of the subtraction is a negative number, then "wrap around" and keep going 
 (e.g. 1=B, 0=A, -1=Z, -2=Y, etc.) The result is the recovered plain text message.
 
 3. According to your level of confidence and paranoia, destroy the pad used to decrypt the message. 
@@ -89,5 +96,6 @@ XTSHPLDISA  4
 WPQSAD
 -----END OTP MESSAGE-----
 
-The message above should decrypt to "HAMMER". 
+The message above should decrypt to "HAMMER" when line 2 of pad 6D9TH3 is used for 
+encryption and decryption. 
 
