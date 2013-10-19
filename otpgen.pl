@@ -1,12 +1,12 @@
 #!/usr/bin/perl -w
 
-# this program is free software released under the GNU GPL v.3
-
 # a perl script to encrypt and decrypt one-time-pad messages
 
 # USAGE: otpgen.pl
 
-# a one-time-pad file will be generated in the current directory.
+# it goes without saying that this program is pointless if your
+# system is exploited or compromised. Take appropriate measures. 
+# One-time-pad files will be generated in the current directory.
 # after printing, the computer system that ran otpgen should be 
 # sanitized appropriately. 
 
