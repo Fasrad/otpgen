@@ -40,6 +40,8 @@ sub encrypt{
     @message=split'',$mess; $mess_length=scalar(@message);
     if($mess_length > $pad_length){print "Not enough pad!\n"; return}
 
+    print $mess,"\n";
+    print $pad,"\n";
     $ind=0;
     while($ind < $mess_length){
         $messd=$alpha{$message[$ind]};
@@ -72,6 +74,8 @@ sub decrypt{
     @message=split'',$mess; $mess_length=scalar(@message);
     if($mess_length > $pad_length){print "Not enough pad!\n"; return}
 
+    print $mess,"\n";
+    print $pad,"\n";
     $ind=0;
     while($ind < $mess_length){
         $messd=$alpha{$message[$ind]};
