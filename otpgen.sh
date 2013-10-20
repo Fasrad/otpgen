@@ -24,9 +24,9 @@
 
 tmpfile=./otp_tmp_$(date +%s%N)$RANDOM
 entropy=$(< /proc/sys/kernel/random/entropy_avail)
-if [ $entropy -lt 1000 ]; then echo "entropy is low: $entropy." ; fi
-md5hash=$( base64 < /dev/urandom | sed 's/[^A-Z]//g' | tr -d '\n'| fold -30 | awk {'print $0, " "  NR'} |
-head -1000 | tee $tmpfile | md5sum | sed 's/ .*//' )
+if [ $entropy -lt 100 ]; then echo "system entropy is low. Pad randomness may be compromised.
+Current entroy: $entropy." ; fi
+md5hash=$( base64 < /dev/urandom | sed 's/[^A-Z]//g' | tr -d '\n'| fold -30 | awk {'print $0, " "  NR'} | head -1000 | tee $tmpfile | md5sum | sed 's/ .*//' )
 
 mv $tmpfile ./OTP-md5_$md5hash
 
